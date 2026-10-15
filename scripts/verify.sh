@@ -54,7 +54,8 @@ verify_frontend() (
 verify_compose() {
   ./scripts/init-env.sh || return $?
   compose_started=true
-  docker compose --project-name "$compose_project" up --build --wait --wait-timeout 240 || return $?
+  docker compose --project-name "$compose_project" up --build --wait --wait-timeout 240 postgres kafka backend frontend || return $?
+  docker compose --project-name "$compose_project" run --rm --no-deps kafka-init || return $?
   python3 scripts/smoke.py
 }
 

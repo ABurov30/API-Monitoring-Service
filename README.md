@@ -2,8 +2,6 @@
 
 Spring Boot опрашивает Frankfurter v2 раз в минуту, сохраняет итог в PostgreSQL вместе с Transactional Outbox и доставляет снимок события в Kafka. Vue-интерфейс показывает статус сервиса пользователю и предоставляет администратору историю и CRUD.
 
-**Статус проверки:** интерфейс собран, проходят 43 теста; coverage — 98,17% строк и 97,82% ветвей. Backend проходит полный Maven verify: 34 unit-теста и 15 интеграционных тестов с настоящими PostgreSQL/Kafka; coverage — 92,26% строк и 80,97% ветвей. Ошибка запуска Kafka исправлена. Пересборка и запуск Docker Compose пока блокируются доступом sandbox к Docker-сокету. Подробный фактический отчёт — [docs/verification.md](docs/verification.md).
-
 ## Запуск с нуля
 
 Нужны Docker Engine / Docker Desktop с Compose v2, доступ к Docker Hub и Maven/npm registry, OpenSSL. Для проверки smoke — Python 3. Локальные порты: 8081 (UI), 8080 (backend), 5432 (PostgreSQL), 9092 (Kafka).
@@ -31,7 +29,7 @@ docker compose down
 
 ## Отдельный запуск
 
-Нужны JDK **17**, Node **22.20.0** (локально также проверен Node 20.19.4), npm 10+, запущенный Docker.
+Нужны JDK **17**, Node **22.20.0**, npm 10+, запущенный Docker.
 
 ```sh
 ./scripts/init-env.sh
@@ -135,14 +133,14 @@ npm test
 npm run build
 ```
 
-Vitest + Vue Test Utils, coverage 80% строк/ветвей (также функций/выражений); отчёт `frontend/coverage/index.html`. Бизнес-код и bootstrap входят в coverage; исключён только декларативный `env.d.ts`, если добавлен. Lombok-generated код фильтруется JaCoCo стандартным механизмом сгенерированных аннотаций; ручных backend exclusions нет.
+Vitest + Vue Test Utils, coverage 80% строк/ветвей (также функций/выражений); отчёт `frontend/coverage/index.html`. Бизнес-код и bootstrap входят в coverage. Сгенерированный Lombok-код фильтруется JaCoCo по аннотациям; ручных backend exclusions нет.
 
-GitHub Actions повторяет эти проверки на push/PR и запускает Compose smoke после успешных backend/frontend jobs. [Ручной сценарий интерфейса](docs/manual-testing.md), [фактические проверки](docs/verification.md).
+GitHub Actions повторяет эти проверки на push/PR и запускает Compose smoke после успешных backend/frontend jobs. [Ручной сценарий интерфейса](docs/manual-testing.md), [инструкция по проверкам](docs/verification.md).
 
 ## Версии и настройки
 
 Java 17, Spring Boot 3.5.16 (Spring Security 6.5, Spring Framework 6.2), Springdoc 2.9.1, Maven Wrapper 3.9.16. Maven BOM фиксирует версии Spring Retry, Kafka, Hibernate, Liquibase, Lombok и Testcontainers. Vue 3.5.22, Vite 7.3.6, TypeScript 5.9.3, Axios 1.12.2, Vue Router 4.6.3, Pinia 2.0.34, Element Plus 2.9.4. Точные зависимости — `backend/pom.xml` и `frontend/package-lock.json`.
 
-Образы зафиксированы в Compose/Dockerfile: PostgreSQL 17.6, Kafka 3.9.1, Nginx 1.28.0, Node 22.20.0, Temurin 17.0.16. Сборка предназначена для arm64/amd64; проверка manifest и сборка образов в текущей среде не выполнены.
+Образы зафиксированы в Compose/Dockerfile: PostgreSQL 17.6, Kafka 3.9.1, Nginx 1.28.0, Node 22.20.0, Temurin 17.0.16.
 
-[Настройки](docs/configuration.md) · [Архитектурные решения](docs/architecture.md) · [Исходное ТЗ](AGENT_TASK.md)
+[Настройки](docs/configuration.md) · [Архитектурные решения](docs/architecture.md) · [API](docs/api.md)

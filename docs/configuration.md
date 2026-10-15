@@ -33,13 +33,11 @@ Producer всегда `acks=all`, `enable.idempotence=true`, `linger.ms=5`. Ег
 
 Frontend `VITE_API_URL` задаётся на этапе сборки. Proxy по умолчанию обеспечивает один origin. Vite сохраняет Host (`changeOrigin=false`), Nginx передаёт `$http_host` вместе с портом; это предотвращает ложное отклонение same-origin POST через CORS. Refresh/CSRF cookie имеют Path=/ и работают также при прямом документированном доступе к backend.
 
-## Проверенные источники
+## Документация
 
 - [Spring Boot 3.5: Java 17 и системные требования](https://docs.spring.io/spring-boot/3.5/system-requirements.html).
 - [Spring Security 6.5: CSRF и SPA](https://docs.spring.io/spring-security/reference/6.5/servlet/exploits/csrf.html).
-- [Spring Retry RetryTemplate](https://docs.spring.io/spring-retry/docs/api/current/org/springframework/retry/support/RetryTemplate.html): retry выполняется с отдельным backoff policy; текущая ссылка API у сайта может показывать старую версию, сигнатуры необходимо подтвердить полной Maven-сборкой.
+- [Spring Retry RetryTemplate 2.0.13](https://github.com/spring-attic/spring-retry/blob/v2.0.13/src/main/java/org/springframework/retry/support/RetryTemplate.java).
 - [Frankfurter v2](https://frankfurter.dev/): публичный источник без ключа.
-
-Невыполненные проверки доступности образов и Maven-компиляции перечислены в verification.md.
-
-Дополнительно сверены [исходники Spring Retry v2.0.13](https://github.com/spring-attic/spring-retry/blob/v2.0.13/src/main/java/org/springframework/retry/support/RetryTemplate.java), [матрица Springdoc](https://springdoc.org/), [требования Vite к Node](https://vite.dev/guide/) и API Apache HttpClient. HTTP-клиент отдельно скомпилирован javac на Java 17 с HttpClient 5.5.2; это не заменяет полную Maven-сборку.
+- [Матрица совместимости Springdoc](https://springdoc.org/).
+- [Требования Vite к Node](https://vite.dev/guide/).

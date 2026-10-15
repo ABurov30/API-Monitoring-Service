@@ -48,7 +48,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: ./scripts/init-env.sh
-      - run: docker compose up --build --wait --wait-timeout 240
+      - run: docker compose up --build --wait --wait-timeout 240 postgres kafka backend frontend
+      - run: docker compose run --rm --no-deps kafka-init
       - run: python3 scripts/smoke.py
       - if: always()
         run: docker compose logs --no-color && docker compose down -v
