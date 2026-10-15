@@ -1,0 +1,9 @@
+target/
+node_modules/
+dist/
+coverage/
+.env
+.idea/
+*.log
+__pycache__/
+*.pyc

@@ -1,0 +1,11 @@
+app:
+  monitor:
+    enabled: false
+  outbox:
+    enabled: false
+  auth:
+    secret: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
+    cookie-secure: false
+spring:
+  kafka:
+    bootstrap-servers: localhost:19092
